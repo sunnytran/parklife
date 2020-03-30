@@ -19,11 +19,13 @@ class Layout extends React.Component {
 					<div class="container">
 						<div class="columns">
 							<div class="column is-2">
-								<Nav currentPage={this.props.currentPage}/>
+								<Nav />
 							</div>
 
 							<div class="column">
-								{this.props.children}
+								<section class="section is-small">							
+									{this.props.children}
+								</section>
 							</div>
 						</div>
 					</div>

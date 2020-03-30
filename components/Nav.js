@@ -1,6 +1,13 @@
 
 import Head from 'next/head';
 import Link from 'next/link';
+import NavLink from './NavLink';
+import styled, { keyframes } from 'styled-components'
+
+// stop unstyled flash
+// react router for link is-active
+// rollercoaster animation
+// text layout for content
 
 class Nav extends React.Component {
 	constructor(props) {
@@ -8,53 +15,69 @@ class Nav extends React.Component {
 	}
 
 	render() {
+
+		const gradient = keyframes`
+			from {
+				-webkit-filter: hue-rotate(0deg);
+			}
+			to {
+				-webkit-filter: hue-rotate(-360deg);
+			}
+		`
+
+		const Title = styled.h1`
+			color: #fff;
+			background-image: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			
+			animation: ${gradient} 30s ease infinite;
+		`
+
 		return (
-				<div>
-					<head>
+			<div>
+				<head>
 						<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
 					</head>
 
 					<aside class="menu">
 						<ul class="menu-list">
 							<li>
-								<h1 class="title is-3 is-spaced animated infinite jello">Parklife</h1>
+								<Title>
+									<h1 class="title is-1 is-spaced animated jello">
+											Parklife
+									</h1>
+								</Title>
 							</li>
 							<li>
 								<ul>
 									<li>
-										<Link href="/">
-											<a class={this.props.currentPage == "home" ? "is-active" : undefined}>Home</a>
-										</Link>
+										<NavLink linkName={"Home"} linkUrl={"/"}>
+										</NavLink>
 									</li>
 									<li>
-										<Link href="/rides">
-											<a class={this.props.currentPage == "rides" ? "is-active" : undefined}>Rides</a>
-										</Link>
+										<NavLink linkName={"Rides"} linkUrl={"/rides"}>
+										</NavLink>
 									</li>
 									<li>
-										<Link href="/concessions">
-											<a class={this.props.currentPage == "concessions" ? "is-active" : undefined}>Concessions</a>
-										</Link>
+										<NavLink linkName={"Concessions"} linkUrl={"/concessions"}>
+										</NavLink>
 									</li>
 									<li>
-										<Link href="/tickets">
-											<a class={this.props.currentPage == "tickets" ? "is-active" : undefined}>Tickets</a>
-										</Link>
+										<NavLink linkName={"Tickets"} linkUrl={"/tickets"}>
+										</NavLink>
 									</li>
 									<li>
-										<Link href="/maintenance">
-											<a class={this.props.currentPage == "maintenance" ? "is-active" : undefined}>Maintenance</a>
-										</Link>
+										<NavLink linkName={"Maintenance"} linkUrl={"/maintenance"}>
+										</NavLink>
 									</li>
 									<li>
-										<Link href="/reports">
-											<a class={this.props.currentPage == "reports" ? "is-active" : undefined}>Reports</a>
-										</Link>
+										<NavLink linkName={"Reports"} linkUrl={"/reports"}>
+										</NavLink>
 									</li>
 									<li>
-										<Link href="/staff">
-											<a class={this.props.currentPage == "staff" ? "is-active" : undefined}>Staff</a>
-										</Link>
+										<NavLink linkName={"Staff"} linkUrl={"/staff"}>
+										</NavLink>
 									</li>
 								</ul>
 							</li>
