@@ -4,10 +4,9 @@ import Link from 'next/link';
 import NavLink from './NavLink';
 import styled, { keyframes } from 'styled-components'
 
-// stop unstyled flash
 // react router for link is-active
+// no refresh when switching
 // rollercoaster animation
-// text layout for content
 
 class Nav extends React.Component {
 	constructor(props) {
@@ -44,7 +43,7 @@ class Nav extends React.Component {
 						<ul class="menu-list">
 							<li>
 								<Title>
-									<h1 class="title is-1 is-spaced animated jello">
+									<h1 class="title is-2 is-spaced animated jello">
 											Parklife
 									</h1>
 								</Title>
@@ -77,6 +76,10 @@ class Nav extends React.Component {
 									</li>
 									<li>
 										<NavLink linkName={"Staff"} linkUrl={"/staff"}>
+										</NavLink>
+									</li>
+									<li>
+										<NavLink linkName={"Login"} linkUrl={"/login"}>
 										</NavLink>
 									</li>
 								</ul>

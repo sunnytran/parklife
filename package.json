@@ -4,10 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-	"dev": "next",
-	"build": "next build",
-	"start": "npm next"
+    "dev": "next",
+    "build": "next build",
+    "start": "npm next",
+		"css-build": "node-sass --omit-source-map-url components/layout.scss components/layout.css",
+		"css-watch": "npm run css-build -- --watch",
+		"css-start": "npm run css-watch"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "bulma": "file://node_modules/bulma",
+    "node-sass": "^4.13.1"
+  }
 }

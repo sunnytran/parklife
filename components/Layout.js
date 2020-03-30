@@ -2,12 +2,20 @@
 import Head from 'next/head';
 import Nav from './Nav';
 
+import styled, { keyframes } from 'styled-components'
+
 class Layout extends React.Component {
 	constructor(props) {
 		super(props);
 	}
-	
+
 	render() {
+
+		const NavColumn = styled.div`
+			width: 11%;
+			margin-left: 2.5%;
+		`
+
 		return (
 			<div>
 				<head>
@@ -16,19 +24,18 @@ class Layout extends React.Component {
 				</head>
 
 				<section class="section is-small">
-					<div class="container">
 						<div class="columns">
-							<div class="column is-2">
+							<NavColumn>
 								<Nav />
-							</div>
+							</NavColumn>
 
-							<div class="column">
-								<section class="section is-small">							
-									{this.props.children}
+							<div class="column is-rest">
+								<section class="section is-small">
+										{this.props.children}
 								</section>
+
 							</div>
 						</div>
-					</div>
 				</section>
 			</div>
 		);
