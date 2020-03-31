@@ -3,7 +3,6 @@ import Head from 'next/head';
 import MyNavLink from './MyNavLink';
 import styled, { keyframes } from 'styled-components';
 
-// rollercoaster animation
 // login
 // true sticky footer
 
