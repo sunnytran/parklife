@@ -1,12 +1,11 @@
 
 import Head from 'next/head';
-import Link from 'next/link';
-import NavLink from './NavLink';
-import styled, { keyframes } from 'styled-components'
+import MyNavLink from './MyNavLink';
+import styled, { keyframes } from 'styled-components';
 
-// react router for link is-active
-// no refresh when switching
 // rollercoaster animation
+// login
+// true sticky footer
 
 class Nav extends React.Component {
 	constructor(props) {
@@ -51,36 +50,32 @@ class Nav extends React.Component {
 							<li>
 								<ul>
 									<li>
-										<NavLink linkName={"Home"} linkUrl={"/"}>
-										</NavLink>
+										<MyNavLink linkName={"Home"} linkUrl={"/"}>
+										</MyNavLink>
 									</li>
 									<li>
-										<NavLink linkName={"Rides"} linkUrl={"/rides"}>
-										</NavLink>
+										<MyNavLink linkName={"Rides"} linkUrl={"/rides"}>
+										</MyNavLink>
 									</li>
 									<li>
-										<NavLink linkName={"Concessions"} linkUrl={"/concessions"}>
-										</NavLink>
+										<MyNavLink linkName={"Concessions"} linkUrl={"/concessions"}>
+										</MyNavLink>
 									</li>
 									<li>
-										<NavLink linkName={"Tickets"} linkUrl={"/tickets"}>
-										</NavLink>
+										<MyNavLink linkName={"Tickets"} linkUrl={"/tickets"}>
+										</MyNavLink>
 									</li>
 									<li>
-										<NavLink linkName={"Maintenance"} linkUrl={"/maintenance"}>
-										</NavLink>
+										<MyNavLink linkName={"Maintenance"} linkUrl={"/maintenance"}>
+										</MyNavLink>
 									</li>
 									<li>
-										<NavLink linkName={"Reports"} linkUrl={"/reports"}>
-										</NavLink>
+										<MyNavLink linkName={"Reports"} linkUrl={"/reports"}>
+										</MyNavLink>
 									</li>
 									<li>
-										<NavLink linkName={"Staff"} linkUrl={"/staff"}>
-										</NavLink>
-									</li>
-									<li>
-										<NavLink linkName={"Login"} linkUrl={"/login"}>
-										</NavLink>
+										<MyNavLink linkName={"Staff"} linkUrl={"/staff"}>
+										</MyNavLink>
 									</li>
 								</ul>
 							</li>

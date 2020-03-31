@@ -1,6 +1,7 @@
 
 import Head from 'next/head';
 import Nav from './Nav';
+import AnimatedFooter from './AnimatedFooter';
 
 import styled, { keyframes } from 'styled-components'
 
@@ -14,6 +15,12 @@ class Layout extends React.Component {
 		const NavColumn = styled.div`
 			width: 11%;
 			margin-left: 2.5%;
+		`
+		const FooterDiv = styled.div`
+			position: absolute;
+			width: 100%;
+			bottom: 0;
+			overflow: hidden;
 		`
 
 		return (
@@ -37,6 +44,11 @@ class Layout extends React.Component {
 							</div>
 						</div>
 				</section>
+	
+				<FooterDiv>
+					<AnimatedFooter>
+					</AnimatedFooter>
+				</FooterDiv>
 			</div>
 		);
 	}
