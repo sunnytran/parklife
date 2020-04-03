@@ -3,8 +3,10 @@ import Head from 'next/head';
 import MyNavLink from './MyNavLink';
 import styled, { keyframes } from 'styled-components';
 
-// login
+// actual content
+// login portal
 // true sticky footer
+// darker color under nav card
 
 class Nav extends React.Component {
 	constructor(props) {
@@ -23,7 +25,6 @@ class Nav extends React.Component {
 		`
 
 		const Title = styled.h1`
-			color: #fff;
 			background-image: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
@@ -57,7 +58,7 @@ class Nav extends React.Component {
 										</MyNavLink>
 									</li>
 									<li>
-										<MyNavLink linkName={"Concessions"} linkUrl={"/concessions"}>
+										<MyNavLink linkName={"Stores"} linkUrl={"/stores"}>
 										</MyNavLink>
 									</li>
 									<li>
