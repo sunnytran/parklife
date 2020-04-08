@@ -17,7 +17,7 @@ class AnimatedFooter extends React.Component {
 			<div>
 				
 				<RailDiv>
-					<Anime translateX={[-545,2885]} easing="linear" duration={ (el, i) => 2500 } delay={ (el, i) => {return 5000;} } loop={true}>
+					<Anime translateX={[-545,2885]} duration={ (el, i) => 20000 } delay={ (el, i) => {return 5000;} } loop={true}>
 				<svg id="carts" width="545" height="47" viewBox="0 5 545 47" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<rect y="23" width="545" height="5" fill="#616161"/>
 				<rect width="105" height="40" rx="7" fill="#9575CD"/>

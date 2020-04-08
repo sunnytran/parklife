@@ -1,0 +1,18 @@
+{
+  "development": {
+    "username": "st",
+    "password": "1234",
+    "database": "thpm",
+    "host": "127.0.0.1",
+	"port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "st",
+    "password": "1234",
+    "database": "thpm",
+    "host": "127.0.0.1",
+	"port": 5432,
+    "dialect": "postgres"
+  }
+}

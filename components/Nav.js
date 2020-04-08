@@ -3,10 +3,8 @@ import Head from 'next/head';
 import MyNavLink from './MyNavLink';
 import styled, { keyframes } from 'styled-components';
 
-// actual content
-// login portal
+// login
 // true sticky footer
-// darker color under nav card
 
 class Nav extends React.Component {
 	constructor(props) {
@@ -35,8 +33,7 @@ class Nav extends React.Component {
 		return (
 			<div>
 				<head>
-						<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
-					</head>
+				</head>
 
 					<aside class="menu">
 						<ul class="menu-list">
@@ -63,14 +60,6 @@ class Nav extends React.Component {
 									</li>
 									<li>
 										<MyNavLink linkName={"Tickets"} linkUrl={"/tickets"}>
-										</MyNavLink>
-									</li>
-									<li>
-										<MyNavLink linkName={"Maintenance"} linkUrl={"/maintenance"}>
-										</MyNavLink>
-									</li>
-									<li>
-										<MyNavLink linkName={"Reports"} linkUrl={"/reports"}>
 										</MyNavLink>
 									</li>
 									<li>
