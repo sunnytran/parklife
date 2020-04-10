@@ -25,6 +25,10 @@ class Rides extends React.Component {
 		this.togglePop = this.togglePop.bind(this);
 		this.addRide = this.addRide.bind(this);
 		this.removeRide = this.removeRide.bind(this);
+		this.CompleteButton = this.CompleteButton.bind(this);
+		this.completeRide = this.completeRide.bind(this);
+		this.MaintenanceButton = this.MaintenanceButton.bind(this);
+		this.reportIssue = this.reportIssue.bind(this);
 	}
 
 	componentDidMount(){
@@ -80,28 +84,137 @@ class Rides extends React.Component {
 		this.togglePop();
 	}
 
-	removeRide(ride) {
-		var data = {
-			"ride_name": ride.ride_name,
-			"ride_type": ride.ride_type,
-			"creation_date": moment(ride.creation_date, 'M/D/YY'),
-			"location": ride.location,
-			"ride_status": ride.ride_status,
-			"last_inspection": moment(ride.last_inspection, 'M/D/YY'),
-			"insurance_expiration_date": moment(ride.insurance_expiration_date, 'M/D/YY')
-		};
+	removeRide(i) {
+		fetch("https://www.tpmanagement.app/api/rides", {
+			method: 'DELETE', 
+			headers: {'Content-Type': 'application/json; charset=utf-8'}, 
+      body: JSON.stringify({"name": i.ride_name})
+    })
+		.then((res) => { console.log(res) })
+		.catch(error => console.log(error));
 
-		fetch('https://www.tpmanagement.app/api/rides', {
-			body: JSON.stringify(data),
-			method: 'DELETE',
-			mode: 'cors'
+		var index = this.state.rides.indexOf(i);
+		var tmp = [...this.state.rides];
+		tmp.splice(index, 1);
+		this.setState({
+			rides: tmp
 		})
-			.then(res => console.log(res))
-			.catch(error => console.log(error));
+
+		//fetch('https://www.tpmanagement.app/api/rides', {
+			//body: JSON.stringify(i),
+			//method: 'DELETE',
+			//mode: 'cors'
+		//})
+			//.then(res => console.log(res))
+			//.catch(error => console.log(error));
 		//fetch('https://www.tpmanagement.app/api/rides/12', {
 			//method: 'DELETE'
 		//});
+	};
+
+	completeRide(i) {
+		var index = this.state.rides.indexOf(i);
+
+		i.ride_status = 'running';
+		i.creation_date = moment();
+		i.last_inspection = moment();
+		i.insurance_expiration_date = moment().add(2, 'years').calendar()
+
+		var data = {
+			"target_name": i.ride_name,
+			"ride_name": i.ride_name,
+			"ride_type": i.ride_type,
+			"creation_date": i.creation_date,
+			"location": i.location,
+			"ride_status": i.ride_status,
+			"last_inspection": i.last_inspection,
+			"insurance_expiration_date": i.insurance_expiration_date
+		};
+
+		fetch("https://www.tpmanagement.app/api/rides", {
+			method: 'PUT', 
+			headers: {'Content-Type': 'application/json; charset=utf-8'}, 
+      body: JSON.stringify(data)
+    })
+		.then((res) => { console.log(res) })
+		.catch(error => console.log(error));
+
+
+		// TODO: keep in index
+		var tmp = [...this.state.rides];
+		tmp[index] = i;
+		this.setState({
+			rides: tmp
+		});
 	}
+
+	CompleteButton(props) {
+		if (props.ride.ride_status != "construction")
+			return null;
+
+		return (
+			<button class="button is-small" onClick={() => this.completeRide(props.ride)}>
+				<span class="icon">
+					<i class="fa fa-check"></i>
+				</span>
+			</button>
+		);
+	}
+
+	reportIssue(i) {
+		//var index = this.state.rides.indexOf(i);
+
+		//i.ride_status = 'maintenance';
+		//i.last_inspection = moment();
+
+		//var data = {
+			//"target_name": i.ride_name,
+			//"ride_name": i.ride_name,
+			//"ride_type": i.ride_type,
+			//"creation_date": i.creation_date,
+			//"location": i.location,
+			//"ride_status": i.ride_status,
+			//"last_inspection": i.last_inspection,
+			//"insurance_expiration_date": i.insurance_expiration_date
+		//};
+
+		//fetch("https://www.tpmanagement.app/api/rides", {
+			//method: 'PUT', 
+			//headers: {'Content-Type': 'application/json; charset=utf-8'}, 
+      //body: JSON.stringify(data)
+    //})
+		//.then((res) => { console.log(res) })
+		//.catch(error => console.log(error));
+
+
+		//var tmp = [...this.state.rides];
+		//tmp[index] = i;
+		//this.setState({
+			//rides: tmp
+		//});
+	}
+
+	//const values = {type: req.body.type, severity: req.body.severity, ride_name: req.body.ride_name};
+	MaintenanceButton(props) {
+		if (props.ride.ride_status != "running")
+			return null;
+
+		return (
+			<div>
+				<button class="button is-small" onClick={this.togglePop}>
+					<span class="icon">
+						<i class="fa fa-exclamation-triangle"></i>
+					</span>
+				</button>
+
+
+			</div>
+		);
+	}
+
+				//<Popup closePopup={this.togglePop} showPop={this.state.showPop} title="Report an issue" submitText="Report" btnFunc={this.reportIssue}>
+				//</Popup>
+
 
 	render() {
 		const rides = this.state.rides;
@@ -116,7 +229,7 @@ class Rides extends React.Component {
 						<span>Add a ride</span>
 					</button>
 
-					<Popup button={this.AddRideButton} closePopup={this.togglePop} showPop={this.state.showPop} title="Add a ride" submitText="Add ride" btnFunc={this.addRide}>
+					<Popup closePopup={this.togglePop} showPop={this.state.showPop} title="Add a ride" submitText="Add ride" btnFunc={this.addRide}>
 						<div class="columns">
 							<div class="column is-half field">
 								<label class="label">Ride name</label>
@@ -179,7 +292,7 @@ class Rides extends React.Component {
 							<th>Status</th>
 							<th>Last inspection</th>
 							<th>Insurance expiration</th>
-							<th>Delete</th>
+							<th>Action</th>
 						</thead>
 
 						<tbody>
@@ -196,11 +309,15 @@ class Rides extends React.Component {
 											<td>{Moment(i.last_inspection).format('M/D/YY')}</td>
 											<td>{Moment(i.insurance_expiration_date).format('M/D/YY')}</td>
 											<td>
-												<button class="button is-small" onClick={() => this.removeRide(i)}>
-													<span class="icon">
-														<i class="fa fa-times"></i>
-													</span>
-												</button>
+												<div class="buttons">
+													<button class="button is-small" onClick={() => this.removeRide(i)}>
+														<span class="icon">
+															<i class="fa fa-times"></i>
+														</span>
+													</button>
+													<this.CompleteButton ride={i} />
+													<this.MaintenanceButton ride={i} />
+												</div>
 											</td>
 										</tr>
 									);
@@ -215,24 +332,4 @@ class Rides extends React.Component {
 };
 
 export default Rides;
-
-
-						//<tbody>
-							//{
-								//rides.map(i => {
-									//return (
-//b
-										//<tr>
-											//<th>{i.ride_name}</th>
-										//</tr>
-									//);
-								//})
-							//}
-						//</tbody>
-
-					//<ul>
-						//{rides.map(i => {
-							//return (<li key={i.ride_name}>{i.ride_name} {i.ride_type}</li>);
-						//})}
-					//</ul>
 

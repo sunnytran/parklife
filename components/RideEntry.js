@@ -28,10 +28,6 @@ class RideEntry extends React.Component {
 		)
 	}
 
-	b
-	b
-	b
-	b
 	togglePop() {
 		this.setState((prev, props) => {
 			const newPop = !prev.showPop;
