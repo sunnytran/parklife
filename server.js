@@ -13,13 +13,17 @@ const { parse } = require('url');
 //Controllers - Where the SQL queries are made in the code
 const login = require('./server/controllers/login');
 const rides = require('./server/controllers/rides');
+const rideson = require('./server/controllers/rideson');
 const shops = require('./server/controllers/shops');
 const tickets = require('./server/controllers/tickets');
+const sales = require('./server/controllers/sales');
 const maintenance = require('./server/controllers/maintenance');
 const rainouts = require('./server/controllers/rainouts');
 const reports = require('./server/controllers/reports');
 const staff = require('./server/controllers/staff');
 const customer = require('./server/controllers/customer');
+const events = require('./server/controllers/events');
+const attends = require('./server/controllers/attends');
 
 //Database Connection---------------------------------------------------
 //This is where we connect to the database
@@ -99,12 +103,20 @@ app.prepare().then(() => {
 	server.put('/api/rides', rides.handleRidePut(db));
 	server.delete('/api/rides', rides.handleRideDelete(db));
 
+	server.get('/api/rideson', rideson.handleRidesOnGet(db));
+	server.post('/api/rideson', rideson.handleRidesOnPost(db));
+	//server.delete('/api/rideson', rideson.handleRidesOnDelete(db)); //Doesn't work
+
 	server.get('/api/shops', shops.handleShopGet(db));
 	server.post('/api/shops', shops.handleShopPost(db));
 	server.delete('/api/shops', shops.handleShopDelete(db));
 
 	server.get('/api/tickets', tickets.handleTicketGet(db));
 	server.post('/api/tickets', tickets.handleTicketPost(db));
+
+	server.get('/api/sales', sales.handleSalesGet(db));
+	server.post('/api/sales', sales.handleSalesPost(db));
+	server.delete('/api/sales', sales.handleSalesDelete(db));
 
 	server.get('/api/maintenance', maintenance.handleMaintenanceGet(db));
 	server.post('/api/maintenance', maintenance.handleMaintenancePost(db));
@@ -121,6 +133,14 @@ app.prepare().then(() => {
 
 	server.get('/api/customer', customer.handleCustomerGet(db));
 	server.post('/api/customer', customer.handleCustomerPost(db));
+
+	server.get('/api/events', events.handleEventsGet(db));
+	server.post('/api/events', events.handleEventsPost(db));
+	server.put('/api/events', events.handleEventsPut(db));
+	server.delete('/api/events', events.handleEventsDelete(db));
+
+	server.get('/api/attends', attends.handleAttendsGet(db));
+	server.post('/api/attends', attends.handleAttendsPost(db));
 
 	server.get('*', (req, res) => {
 		return handle(req, res);

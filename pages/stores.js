@@ -1,4 +1,4 @@
-
+	
 import Layout from '../components/Layout';
 import Popup from '../components/Popup';
 import moment from 'moment';
@@ -63,6 +63,23 @@ class Stores extends React.Component {
 		this.togglePop();
 	}
 
+	removeStore(i) {
+		fetch("https://www.tpmanagement.app/api/shops", {
+			method: 'DELETE', 
+			headers: {'Content-Type': 'application/json; charset=utf-8'}, 
+      body: JSON.stringify({"name": i.shop_name})
+    })
+		.then((res) => { console.log(res) })
+		.catch(error => console.log(error));
+
+		var index = this.state.stores.indexOf(i);
+		var tmp = [...this.state.stores];
+		tmp.splice(index, 1);
+		this.setState({
+			stores: tmp
+		})
+	};
+
 	togglePop() {
 		this.setState((prev, props) => {
 			const newPop = !prev.showPop;
@@ -122,7 +139,7 @@ class Stores extends React.Component {
 												<td>{i.shop_type}</td>
 												<td>{i.location}</td>
 												<td>
-													<button class="button is-small" onClick={() => this.removeRide(i)}>
+													<button class="button is-small" onClick={() => this.removeStore(i)}>
 														<span class="icon">
 															<i class="fa fa-times"></i>
 														</span>

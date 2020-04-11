@@ -26,6 +26,7 @@ class Rides extends React.Component {
 		this.toggleRidePop = this.toggleRidePop.bind(this);
 		this.addRide = this.addRide.bind(this);
 		this.removeRide = this.removeRide.bind(this);
+		this.updateRideStatus = this.updateRideStatus.bind(this);
 		this.CompleteButton = this.CompleteButton.bind(this);
 		this.completeRide = this.completeRide.bind(this);
 	}
@@ -98,17 +99,6 @@ class Rides extends React.Component {
 		this.setState({
 			rides: tmp
 		})
-
-		//fetch('https://www.tpmanagement.app/api/rides', {
-			//body: JSON.stringify(i),
-			//method: 'DELETE',
-			//mode: 'cors'
-		//})
-			//.then(res => console.log(res))
-			//.catch(error => console.log(error));
-		//fetch('https://www.tpmanagement.app/api/rides/12', {
-			//method: 'DELETE'
-		//});
 	};
 
 	completeRide(i) {
@@ -138,8 +128,6 @@ class Rides extends React.Component {
 		.then((res) => { console.log(res) })
 		.catch(error => console.log(error));
 
-
-		// TODO: keep in index
 		var tmp = [...this.state.rides];
 		tmp[index] = i;
 		this.setState({
@@ -160,57 +148,23 @@ class Rides extends React.Component {
 		);
 	}
 
-	//reportIssue(i) {
-		//var index = this.state.rides.indexOf(i);
+	updateRideStatus(i, status) {
+		var index = this.state.rides.indexOf(i);
+		
+		i.ride_status = status;
+		i.last_inspection = moment().format('M/D/YY')
 
-		//i.ride_status = 'maintenance';
-		//i.last_inspection = moment();
+		var tmp = [...this.state.rides];
+		tmp[index] = i;
 
-		//var data = {
-			//"target_name": i.ride_name,
-			//"ride_name": i.ride_name,
-			//"ride_type": i.ride_type,
-			//"creation_date": i.creation_date,
-			//"location": i.location,
-			//"ride_status": i.ride_status,
-			//"last_inspection": i.last_inspection,
-			//"insurance_expiration_date": i.insurance_expiration_date
-		//};
+		this.setState({
+			state: this.state
+		});
+		this.setState({
+			togglePop: false
+		});
+	}
 
-		//console.log(data);
-
-		////fetch("https://www.tpmanagement.app/api/rides", {
-			////method: 'PUT', 
-			////headers: {'Content-Type': 'application/json; charset=utf-8'}, 
-			////body: JSON.stringify(data)
-		////})
-		////.then((res) => { console.log(res) })
-		////.catch(error => console.log(error));
-
-
-		////var tmp = [...this.state.rides];
-		////tmp[index] = i;
-		////this.setState({
-			////rides: tmp
-		////});
-
-		////data = {
-			////"type": this.inputIssueType.current.value,
-			////"severity": this.inputSeverity.current.value,
-			////"ride_name": i.ride_name
-		////}
-		////fetch("https://www.tpmanagement.app/api/maintenance", {
-			////method: 'PUT', 
-			////headers: {'Content-Type': 'application/json; charset=utf-8'}, 
-			////body: JSON.stringify(data)
-		////})
-		////.then((res) => { console.log(res) })
-		////.catch(error => console.log(error));
-
-		//this.toggleIssuePop();
-	//}
-
-	//const values = {type: req.body.type, severity: req.body.severity, ride_name: req.body.ride_name};
 
 	render() {
 		const rides = this.state.rides;
@@ -297,7 +251,7 @@ class Rides extends React.Component {
 
 									return (
 										<tr class={i.ride_status == "maintenance" ? "has-text-danger" : ""}>
-											<td><RideEntry ride={i} /></td>
+											<td><RideEntry ride={i} updateRideStatus={this.updateRideStatus.bind(this)} /></td>
 											<td>{i.ride_type}</td>
 											<td>{Moment(i.creation_date).format('M/D/YY')}</td>
 											<td>{i.location}</td>
@@ -312,7 +266,7 @@ class Rides extends React.Component {
 														</span>
 													</button>
 													<this.CompleteButton ride={i} />
-													<MaintenanceButton ride={i} />
+													<MaintenanceButton ride={i} updateRideStatus={this.updateRideStatus.bind(this)} />
 												</div>
 											</td>
 										</tr>
