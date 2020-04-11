@@ -12,6 +12,7 @@ class Rides extends React.Component {
 		
 		this.state = {
 			rides: [],
+			issues: [],
 			showRidePop: false,
 		}
 		
@@ -39,6 +40,17 @@ class Rides extends React.Component {
 			(result)=> {
 				this.setState({
 					rides: result
+				});
+				console.log(result);
+			}
+		)
+
+		fetch("https://www.tpmanagement.app/api/maintenance")
+		.then(res => res.json())
+		.then (
+			(result)=> {
+				this.setState({
+					issues: result
 				});
 				console.log(result);
 			}
@@ -148,7 +160,7 @@ class Rides extends React.Component {
 		);
 	}
 
-	updateRideStatus(i, status) {
+	updateRideStatus(i, status, issue) {
 		var index = this.state.rides.indexOf(i);
 		
 		i.ride_status = status;
@@ -156,6 +168,13 @@ class Rides extends React.Component {
 
 		var tmp = [...this.state.rides];
 		tmp[index] = i;
+
+
+		if (status == 'maintenance') {
+			this.setState({
+				issues: [ ...this.state.issues, issue ]
+			});
+		}
 
 		this.setState({
 			state: this.state
@@ -251,7 +270,7 @@ class Rides extends React.Component {
 
 									return (
 										<tr class={i.ride_status == "maintenance" ? "has-text-danger" : ""}>
-											<td><RideEntry ride={i} updateRideStatus={this.updateRideStatus.bind(this)} /></td>
+											<td><RideEntry issues={this.state.issues} ride={i} updateRideStatus={this.updateRideStatus.bind(this)} /></td>
 											<td>{i.ride_type}</td>
 											<td>{Moment(i.creation_date).format('M/D/YY')}</td>
 											<td>{i.location}</td>

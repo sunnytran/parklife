@@ -2,12 +2,14 @@
 import Layout from '../components/Layout';
 import Popup from '../components/Popup';
 import moment from 'moment';
+import StoreEntry from '../components/StoreEntry';
 
 class Stores extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
 			stores: [],
+			sales: [],
 			showPop: false
 		}
 	
@@ -27,6 +29,17 @@ class Stores extends React.Component {
 			(result)=> {
 				this.setState({
 					stores: result
+				});
+				console.log(result);
+			}
+		)
+
+		fetch("https://www.tpmanagement.app/api/sales")
+		.then(res => res.json())
+		.then (
+			(result)=> {
+				this.setState({
+					sales: result
 				});
 				console.log(result);
 			}
@@ -135,7 +148,7 @@ class Stores extends React.Component {
 									stores.map(i => {
 										return (
 											<tr>
-												<td>{i.shop_name}</td>
+												<td><StoreEntry sales={this.state.sales} shopName={i.shop_name} /></td>
 												<td>{i.shop_type}</td>
 												<td>{i.location}</td>
 												<td>

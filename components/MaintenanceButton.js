@@ -73,7 +73,7 @@ class MaintenanceButton extends React.Component {
 
 		this.togglePop();
 	
-		this.props.updateRideStatus(original, "maintenance");
+		this.props.updateRideStatus(original, "maintenance", data);
 	}
 
 

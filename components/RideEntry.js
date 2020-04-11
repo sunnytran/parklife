@@ -10,25 +10,25 @@ class RideEntry extends React.Component {
 		super(props);
 
 		this.state = {
-			reports: [],
+			//reports: [],
 			showPop: false
 		}
 		this.togglePop = this.togglePop.bind(this);
 		this.fixIssue = this.fixIssue.bind(this);
 	}
 
-	componentDidMount(){
-		fetch("https://www.tpmanagement.app/api/maintenance")
-		.then(res => res.json())
-		.then (
-			(result)=> {
-				this.setState({
-					reports: result
-				});
-				console.log(result);
-			}
-		)
-	}
+	//componentDidMount(){
+		//fetch("https://www.tpmanagement.app/api/maintenance")
+		//.then(res => res.json())
+		//.then (
+			//(result)=> {
+				//this.setState({
+					//reports: result
+				//});
+				//console.log(result);
+			//}
+		//)
+	//}
 
 	togglePop() {
 		this.setState((prev, props) => {
@@ -76,13 +76,13 @@ class RideEntry extends React.Component {
 		.then((res) => { console.log(res) })
 		.catch(error => console.log(error));
 
-		this.props.updateRideStatus(original, "running");
+		this.props.updateRideStatus(original, "running", null);
 	}
 
 	render() {
 
 		const ride = this.props.ride;
-		const reports = this.state.reports;
+		const reports = this.props.issues;
 
 		if (ride.ride_status == "maintenance") {
 			return (
