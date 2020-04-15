@@ -23,7 +23,8 @@ class Nav extends React.Component {
 		`
 
 		const Title = styled.h1`
-			background-image: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+			background-image: linear-gradient(left, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+			background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 			
@@ -38,11 +39,9 @@ class Nav extends React.Component {
 					<aside class="menu">
 						<ul class="menu-list">
 							<li>
-								<Title>
-									<h1 class="title is-2 is-spaced animated jello">
-											Parklife
-									</h1>
-								</Title>
+								<h1 class="title is-2 is-spaced animated jello">
+										Parklife
+								</h1>
 							</li>
 							<li>
 								<ul>
