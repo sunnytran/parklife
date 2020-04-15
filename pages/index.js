@@ -57,7 +57,7 @@ class Index extends React.Component {
 		.catch(error => console.log(error));
 
 		fetch("https://www.tpmanagement.app/api/reports", {
-			body: JSON.stringify({ "report" : "rainouts", "start" : "2000-1-1", "end": today  }),
+			body: JSON.stringify({ "report" : "rainouts_old", "start" : "2000-1-1", "end": today  }),
 			headers: headers,
 			method: 'POST',
 			mode: 'cors'
@@ -68,6 +68,7 @@ class Index extends React.Component {
 				this.setState({
 					rainouts: result[0]
 				});
+				console.log(JSON.stringify(result) +"<--rainouts");
 			}
 		)
 		.catch(error => console.log(error));
